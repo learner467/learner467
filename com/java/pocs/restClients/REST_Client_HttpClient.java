@@ -38,7 +38,7 @@ public class REST_Client_HttpClient {
             Log.logLine();
         }
 
-        if(disableFlag){
+        if(enableFlag){
             Log.logLine();
             Log.log("CALLING: "+rest_client.envPropertiesMap.get(REST_Constants.GET_OPERATION_2)+className,method);
 
@@ -46,7 +46,7 @@ public class REST_Client_HttpClient {
             Log.logLine();
         }
 
-        if(enableFlag){
+        if(disableFlag){
             Log.logLine();
             String post_operation1_body=rest_client.envPropertiesMap.get(REST_Constants.POST_OPERATION_1_BODY);
             Log.log("CALLING: "+rest_client.envPropertiesMap.get(REST_Constants.POST_OPERATION_1)+className,method);
@@ -66,6 +66,32 @@ public class REST_Client_HttpClient {
         String method="invokeGetOperation";
         Log.log("START", className,method);
         try {
+
+            Log.log("Calling "+operation+" for params: "+params, 
+            className,method);
+
+            String restUrl=envPropertiesMap.get(REST_Constants.BASE_URL)+envPropertiesMap.get(REST_Constants.BASE_RESOURCE)
+                                +operation+params;
+            Log.log("REST URL "+restUrl, className,method);
+
+            HttpRequest.Builder requestBuilder=HttpRequest.newBuilder();
+            requestBuilder.uri(new URI(restUrl));
+            requestBuilder.header("Content-Type", "application/json");
+            requestBuilder.header("Authorization", "Basic " +
+                Base64.getEncoder().encodeToString((envPropertiesMap.get(REST_Constants.USERNAME) + ":" 
+                + envPropertiesMap.get(REST_Constants.PASSWORD)).getBytes()));
+            requestBuilder.GET();
+
+            HttpRequest postRequest=requestBuilder.build();
+
+            HttpClient httpClient=HttpClient.newHttpClient();
+            HttpResponse<String> response = httpClient.send(postRequest, HttpResponse.BodyHandlers.ofString());
+
+            int statusCode=response.statusCode();
+            String responseBody=response.body();
+            
+            Log.log("statusCode: "+statusCode, className,method);
+            Log.log("responseBody: "+responseBody, className,method);
 
         }catch (Exception e) {
             Log.log(e,"Exception",className,method);
