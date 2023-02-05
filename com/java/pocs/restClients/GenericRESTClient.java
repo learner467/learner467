@@ -38,6 +38,11 @@ public class GenericRESTClient {
 
             envPropertiesMap.put(REST_Constants.POST_OPERATION_1, prop.getProperty("post.operation1"));
             envPropertiesMap.put(REST_Constants.POST_OPERATION_1_BODY, prop.getProperty("post.operation1_body"));
+
+            envPropertiesMap.put(REST_Constants.BASE_RESOURCE_1, prop.getProperty("base.resource1"));
+            envPropertiesMap.put(REST_Constants.TOKEN_KEY_1, prop.getProperty("token.key1"));
+
+            envPropertiesMap.put(REST_Constants.BASE_RESOURCE_2, prop.getProperty("base.resource2"));
             
 
             Log.log("Initilized values are ....START", className,method);
