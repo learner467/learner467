@@ -5,22 +5,22 @@ public class AA_ReverseAString{
 
     public static void main(String[] args) {
         Log.logDivider();
-        Log.log("START", "AA_ReverseAString","main");
+        Log.log("START", "com.dsa.lco.aa_basics.AA_ReverseAString","main");
         Log.logLine();
 
         String myString="parag";
-        Log.log("Calling reverseString for string "+myString, "AA_ReverseAString","main");
+        Log.log("Calling reverseString for string "+myString, "com.dsa.lco.aa_basics.AA_ReverseAString","main");
         
         reverseString(myString);
 
         Log.logLine();
-        Log.log("END", "AA_ReverseAString","main");
+        Log.log("END", "com.dsa.lco.aa_basics.AA_ReverseAString","main");
         Log.logDivider();
     }
 
     public static String reverseString(String myString){
-        Log.log("START", "AA_ReverseAString","reverseString");
-        Log.log("Input String is: "+myString, "AA_ReverseAString","reverseString");
+        Log.log("START", "com.dsa.lco.aa_basics.AA_ReverseAString","reverseString");
+        Log.log("Input String is: "+myString, "com.dsa.lco.aa_basics.AA_ReverseAString","reverseString");
 
         char myArrary[]=myString.toCharArray();
 
@@ -36,8 +36,8 @@ public class AA_ReverseAString{
         }
         myString =new String(myArrary);
 
-        Log.log("Reversed String is: "+myString, "AA_ReverseAString","reverseString");
-        Log.log("END", "AA_ReverseAString","reverseString");
+        Log.log("Reversed String is: "+myString, "com.dsa.lco.aa_basics.AA_ReverseAString","reverseString");
+        Log.log("END", "com.dsa.lco.aa_basics.AA_ReverseAString","reverseString");
 
         return myString;
         
