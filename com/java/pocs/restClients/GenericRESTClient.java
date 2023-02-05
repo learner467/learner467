@@ -2,7 +2,6 @@ package com.java.pocs.restClients;
 
 import java.io.FileInputStream;
 import java.io.InputStream;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Properties;
 
@@ -51,8 +50,7 @@ public class GenericRESTClient {
 
 
         }catch (Exception e){
-            Log.log("ExeceptionOccured:::Exception:::"+e+Arrays.toString(e.getStackTrace()).replace(",", "\n"), 
-            className,method);
+            Log.log(e,"Exception",className,method);
             status="ERROR";
         }
         Log.logLine();

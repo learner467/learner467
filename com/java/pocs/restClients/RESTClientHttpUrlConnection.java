@@ -14,11 +14,10 @@ import java.net.URL;
 
 import java.util.Base64;
 import java.util.HashMap;
-import java.util.Arrays;
 
-public class REST_Client {
+public class RESTClientHttpUrlConnection {
     
-    static final String className="com.java.pocs.restClients.REST_Client";
+    static final String className="com.java.pocs.restClients.RESTClientHttpUrlConnection";
     
     HashMap<String,String> envPropertiesMap=new HashMap<String,String>();
     static boolean enableFlag=true;
@@ -29,8 +28,11 @@ public class REST_Client {
         Log.log("START", className,method);
         Log.logLine();
 
-        REST_Client rest_client=new REST_Client();
-        GenericRESTClient.initializeEnvironmentDetails(rest_client.envPropertiesMap);
+        RESTClientHttpUrlConnection rest_client=new RESTClientHttpUrlConnection();
+        String initializationStatus=GenericRESTClient.initializeEnvironmentDetails(rest_client.envPropertiesMap);
+        if(!"SUCCESS".equals(initializationStatus)){
+            Log.log("Environment Initialization failed. Aborting.", className,method);
+        }
         String requestId="3931409";
 
         if(disableFlag){
@@ -101,17 +103,11 @@ public class REST_Client {
             conn.disconnect();
   
         } catch (MalformedURLException e) {
-            Log.log("ExeceptionOccured:::MalformedURLException:::"+e+Arrays.toString(e.getStackTrace()).replace(",", "\n"), 
-            className,method);
-  
+            Log.log(e,"MalformedURLException",className,method);
         } catch (IOException e) {
-            Log.log("ExeceptionOccured:::IOException:::"+e+Arrays.toString(e.getStackTrace()).replace(",", "\n"), 
-            className,method);
-  
+            Log.log(e,"IOException",className,method);
         } catch (Exception e) {
-            Log.log("ExeceptionOccured:::Exception:::"+e+Arrays.toString(e.getStackTrace()).replace(",", "\n"), 
-            className,method);
-  
+            Log.log(e,"Exception",className,method);
         }
 
         Log.log("END", className,method);
@@ -167,20 +163,15 @@ public class REST_Client {
             conn.disconnect();
 
         } catch (MalformedURLException e) {
-            Log.log("ExeceptionOccured:::MalformedURLException:::"+e+Arrays.toString(e.getStackTrace()).replace(",", "\n"), 
-            className,method);
-  
+            Log.log(e,"MalformedURLException",className,method);
         } catch (IOException e) {
-            Log.log("ExeceptionOccured:::IOException:::"+e+Arrays.toString(e.getStackTrace()).replace(",", "\n"), 
-            className,method);
-  
+            Log.log(e,"IOException",className,method);
         } catch (Exception e) {
-            Log.log("ExeceptionOccured:::Exception:::"+e+Arrays.toString(e.getStackTrace()).replace(",", "\n"), 
-            className,method);
-  
+            Log.log(e,"Exception",className,method);
         }
 
         Log.log("END", className,method);
       }
+      
 
 }

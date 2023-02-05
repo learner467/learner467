@@ -1,11 +1,13 @@
 package com.logging;
 
+import java.util.Arrays;
+
 public class Log {
    
     public static final String DISABLE="DISABLE";
     public static void log(String message,String className, String method){
         if(!DISABLE.equals(method)){
-            System.out.println("    "+className+":"+method+"::"+message);
+            System.out.println(className+":"+method+"::"+message);
         }  
     }
 
@@ -17,6 +19,13 @@ public class Log {
         }  
     }
 
+    public static void log(Exception e,String message,String className, String method){
+        if(!DISABLE.equals(method)){
+            System.out.println(className+":"+method+"::ExeceptionOccured:::"+message+e+Arrays.toString(e.getStackTrace()).replace(",", "\n"));
+           
+       
+        }
+    }
     public static void logDivider(){
         System.out.println("\n\n\n");
     }
