@@ -1,14 +1,12 @@
 package com.java.pocs.restClients;
 
-import com.java.pocs.ConfConstants;
 import com.logging.Log;
 
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
-import java.io.FileInputStream;
-import java.io.InputStream;
+
 
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
@@ -17,35 +15,34 @@ import java.net.URL;
 import java.util.Base64;
 import java.util.HashMap;
 import java.util.Arrays;
-import java.util.Properties;
 
 public class REST_Client {
+    
+    static final String className="com.java.pocs.restClients.REST_Client";
     
     HashMap<String,String> envPropertiesMap=new HashMap<String,String>();
     static boolean enableFlag=true;
     static boolean disableFlag=false;
     public static void main(String[] args) {
+        String method="main";
         Log.logDivider();
-        Log.log("START", "com.java.pocs.restClients.REST_Client","main");
+        Log.log("START", className,method);
         Log.logLine();
 
         REST_Client rest_client=new REST_Client();
-        rest_client.initializeEnvironmentDetails();
+        GenericRESTClient.initializeEnvironmentDetails(rest_client.envPropertiesMap);
         String requestId="3931409";
 
         if(disableFlag){
             Log.logLine();
-            Log.log("============CALLING: "+rest_client.envPropertiesMap.get(REST_Constants.GET_OPERATION_1)+
-            "============", "com.java.pocs.restClients.REST_Client","main");
-
+            Log.log("CALLING: "+rest_client.envPropertiesMap.get(REST_Constants.GET_OPERATION_1), className,method);
             rest_client.invokeGetOperation(rest_client.envPropertiesMap.get(REST_Constants.GET_OPERATION_1),requestId);
             Log.logLine();
         }
 
         if(disableFlag){
             Log.logLine();
-            Log.log("============CALLING: "+rest_client.envPropertiesMap.get(REST_Constants.GET_OPERATION_2)+
-                    "============", "com.java.pocs.restClients.REST_Client","main");
+            Log.log("CALLING: "+rest_client.envPropertiesMap.get(REST_Constants.GET_OPERATION_2)+className,method);
 
             rest_client.invokeGetOperation(rest_client.envPropertiesMap.get(REST_Constants.GET_OPERATION_2),requestId);
             Log.logLine();
@@ -54,12 +51,11 @@ public class REST_Client {
         if(enableFlag){
             Log.logLine();
             String post_operation1_body=rest_client.envPropertiesMap.get(REST_Constants.POST_OPERATION_1_BODY);
-            Log.log("============CALLING: "+rest_client.envPropertiesMap.get(REST_Constants.POST_OPERATION_1)+
-                    "============", "com.java.pocs.restClients.REST_Client","main");
+            Log.log("CALLING: "+rest_client.envPropertiesMap.get(REST_Constants.POST_OPERATION_1)+className,method);
             rest_client.invokePostOperation(rest_client.envPropertiesMap.get(REST_Constants.POST_OPERATION_1),post_operation1_body);
             Log.logLine();
         }
-        Log.log("END", "com.java.pocs.restClients.REST_Client","main");
+        Log.log("END", className,method);
         Log.logLine();
     }
 
@@ -69,11 +65,12 @@ public class REST_Client {
      * @param params
      */
     public void invokeGetOperation(String operation,String params) {
-        Log.log("START", "com.java.pocs.restClients.REST_Client","invokeGetOperation");
+        String method="invokeGetOperation";
+        Log.log("START", className,method);
         try {
             
             Log.log("Calling "+operation+" for params: "+params, 
-            "com.java.pocs.restClients.REST_Client","invokeGetOperation");
+            className,method);
 
             String restUrl=envPropertiesMap.get(REST_Constants.BASE_URL)+envPropertiesMap.get(REST_Constants.BASE_RESOURCE)+operation+params;
             URL url = new URL(restUrl);
@@ -86,38 +83,38 @@ public class REST_Client {
 
             int responseCode=conn.getResponseCode();
 
-            Log.log("ResponseCode: "+responseCode, "com.java.pocs.restClients.REST_Client","invokeGetOperation");
+            Log.log("ResponseCode: "+responseCode, className,method);
 
             if (responseCode != 200) {
-                Log.log("Failed : HTTP error code: "+responseCode, "com.java.pocs.restClients.REST_Client","invokeGetOperation");
+                Log.log("Failed : HTTP error code: "+responseCode, className,method);
                 throw new RuntimeException("Failed : HTTP error code : " + responseCode);
             }
 
             BufferedReader br = new BufferedReader(new InputStreamReader((conn.getInputStream())));
 
-            Log.log("Output from Server START:....\n", "com.java.pocs.restClients.REST_Client","invokeGetOperation");
+            Log.log("Output from Server START:....\n", className,method);
             String output;
             while ((output = br.readLine()) != null) {
                 System.out.println(output);
             }
-            Log.log("Output from Server END:....\n", "com.java.pocs.restClients.REST_Client","invokeGetOperation");
+            Log.log("Output from Server END:....\n", className,method);
             conn.disconnect();
   
         } catch (MalformedURLException e) {
             Log.log("ExeceptionOccured:::MalformedURLException:::"+e+Arrays.toString(e.getStackTrace()).replace(",", "\n"), 
-            "com.java.pocs.restClients.REST_Client","invokeGetOperation");
+            className,method);
   
         } catch (IOException e) {
             Log.log("ExeceptionOccured:::IOException:::"+e+Arrays.toString(e.getStackTrace()).replace(",", "\n"), 
-            "com.java.pocs.restClients.REST_Client","invokeGetOperation");
+            className,method);
   
         } catch (Exception e) {
             Log.log("ExeceptionOccured:::Exception:::"+e+Arrays.toString(e.getStackTrace()).replace(",", "\n"), 
-            "com.java.pocs.restClients.REST_Client","invokeGetOperation");
+            className,method);
   
         }
 
-        Log.log("END", "com.java.pocs.restClients.REST_Client","invokeGetOperation");
+        Log.log("END", className,method);
 
   
       }
@@ -128,14 +125,15 @@ public class REST_Client {
      * @param params
      */
     public void invokePostOperation(String operation,String body) {
-        Log.log("START", "com.java.pocs.restClients.REST_Client","invokePostOperation");
+        String method="invokePostOperation";
+        Log.log("START", className,method);
         try {
             
             Log.log("Calling "+operation+" for body: "+body, 
-            "com.java.pocs.restClients.REST_Client","invokePostOperation");
+            className,method);
 
             String restUrl=envPropertiesMap.get(REST_Constants.BASE_URL)+envPropertiesMap.get(REST_Constants.BASE_RESOURCE);
-            Log.log("REST URL "+restUrl, "com.java.pocs.restClients.REST_Client","invokePostOperation");
+            Log.log("REST URL "+restUrl, className,method);
             URL url = new URL(restUrl);
             HttpURLConnection conn = (HttpURLConnection) url.openConnection();
             conn.setRequestMethod("POST");
@@ -151,86 +149,38 @@ public class REST_Client {
 
             int responseCode=conn.getResponseCode();
 
-            Log.log("ResponseCode: "+responseCode, "com.java.pocs.restClients.REST_Client","invokePostOperation");
+            Log.log("ResponseCode: "+responseCode, className,method);
 
             if (responseCode != HttpURLConnection.HTTP_CREATED) {
-                Log.log("Failed : HTTP error code: "+responseCode, "com.java.pocs.restClients.REST_Client","invokePostOperation");
+                Log.log("Failed : HTTP error code: "+responseCode, className,method);
                 throw new RuntimeException("Failed : HTTP error code : " + responseCode);
             }
 
             BufferedReader br = new BufferedReader(new InputStreamReader((conn.getInputStream())));
 
-            Log.log("Output from Server START:....\n", "com.java.pocs.restClients.REST_Client","invokePostOperation");
+            Log.log("Output from Server START:....\n", className,method);
             String output;
             while ((output = br.readLine()) != null) {
                 System.out.println(output);
             }
-            Log.log("Output from Server END:....\n", "com.java.pocs.restClients.REST_Client","invokePostOperation");
+            Log.log("Output from Server END:....\n", className,method);
             conn.disconnect();
 
         } catch (MalformedURLException e) {
             Log.log("ExeceptionOccured:::MalformedURLException:::"+e+Arrays.toString(e.getStackTrace()).replace(",", "\n"), 
-            "com.java.pocs.restClients.REST_Client","invokePostOperation");
+            className,method);
   
         } catch (IOException e) {
             Log.log("ExeceptionOccured:::IOException:::"+e+Arrays.toString(e.getStackTrace()).replace(",", "\n"), 
-            "com.java.pocs.restClients.REST_Client","invokePostOperation");
+            className,method);
   
         } catch (Exception e) {
             Log.log("ExeceptionOccured:::Exception:::"+e+Arrays.toString(e.getStackTrace()).replace(",", "\n"), 
-            "com.java.pocs.restClients.REST_Client","invokePostOperation");
+            className,method);
   
         }
 
-        Log.log("END", "com.java.pocs.restClients.REST_Client","invokePostOperation");
+        Log.log("END", className,method);
       }
-
-    /**
-     * Initialize environment details from Local Files
-     * @return
-     */
-    public String initializeEnvironmentDetails(){
-        Log.log("START", "com.java.pocs.restClients.REST_Client","initializeEnvironmentDetails");
-        Log.logLine();
-        String status="SUCCESS";
-        try(InputStream input = new FileInputStream(ConfConstants.ENV_CONFIG_FILE)){
-            Properties prop = new Properties();
-
-            // load a properties file
-            prop.load(input);
-
-            // get the property value and print it out
-            envPropertiesMap.put(REST_Constants.BASE_URL, prop.getProperty("base.url"));
-            envPropertiesMap.put(REST_Constants.BASE_RESOURCE, prop.getProperty("base.resource"));
-            
-            envPropertiesMap.put(REST_Constants.USERNAME, prop.getProperty("username"));
-            envPropertiesMap.put(REST_Constants.PASSWORD, prop.getProperty("password"));
-
-            envPropertiesMap.put(REST_Constants.GET_OPERATION_1, prop.getProperty("get.operation1"));
-            envPropertiesMap.put(REST_Constants.GET_OPERATION_2, prop.getProperty("get.operation2"));
-
-            envPropertiesMap.put(REST_Constants.POST_OPERATION_1, prop.getProperty("post.operation1"));
-            envPropertiesMap.put(REST_Constants.POST_OPERATION_1_BODY, prop.getProperty("post.operation1_body"));
-            
-
-            Log.log("Initilized values are ....START", "com.java.pocs.restClients.REST_Client","initializeEnvironmentDetails");
-            Log.logLine();
-            envPropertiesMap.entrySet().forEach(entry -> {
-                Log.log(entry.getKey() + "::: " + entry.getValue(), "initializeEnvironmentDetails");
-            });
-            Log.logLine();
-            Log.log("Initilized values are ....END", "com.java.pocs.restClients.REST_Client","initializeEnvironmentDetails");
-
-
-        }catch (Exception e){
-            Log.log("ExeceptionOccured:::Exception:::"+e+Arrays.toString(e.getStackTrace()).replace(",", "\n"), 
-            "com.java.pocs.restClients.REST_Client","initializeEnvironmentDetails");
-            status="ERROR";
-        }
-        Log.logLine();
-        Log.log("END Returning status: "+status, "com.java.pocs.restClients.REST_Client","initializeEnvironmentDetails");
-        return status;
-      }//END initializeEnvironmentDetails()
-
 
 }
