@@ -15,6 +15,8 @@ import java.net.URL;
 import java.util.Base64;
 import java.util.HashMap;
 
+import org.json.JSONObject;
+
 public class RESTClientHttpUrlConnection {
     
     static final String className="com.java.pocs.restClients.RESTClientHttpUrlConnection";
@@ -160,12 +162,14 @@ public class RESTClientHttpUrlConnection {
 
             Log.log("Output from Server START:....\n", className,method);
             String output;
+            StringBuilder sBuilder=new StringBuilder();
             while ((output = br.readLine()) != null) {
                 System.out.println(output);
+                sBuilder.append(output);
             }
             Log.log("Output from Server END:....\n", className,method);
             conn.disconnect();
-
+            parseJson(sBuilder.toString());
         } catch (MalformedURLException e) {
             Log.log(e,"MalformedURLException",className,method);
         } catch (IOException e) {
@@ -182,7 +186,8 @@ public class RESTClientHttpUrlConnection {
         Log.log("START", className,method);
         try{
             JSONObject jObj= new JSONObject(jsonString);
-            System.out.println(jObj.get("key"));
+            System.out.println("OperationName "+jObj.get("OperationName"));
+            System.out.println("JSONObject "+jObj.get("links"));
         }catch (Exception e) {
             Log.log(e,"Exception",className,method);
         }
