@@ -96,11 +96,15 @@ public class RESTClientHttpUrlConnection {
 
             Log.log("Output from Server START:....\n", className,method);
             String output;
+            StringBuilder sb=new StringBuilder();
             while ((output = br.readLine()) != null) {
                 System.out.println(output);
+                sb.append(output);
             }
             Log.log("Output from Server END:....\n", className,method);
             conn.disconnect();
+
+            parseJson(sb.toString());
   
         } catch (MalformedURLException e) {
             Log.log(e,"MalformedURLException",className,method);
@@ -170,6 +174,18 @@ public class RESTClientHttpUrlConnection {
             Log.log(e,"Exception",className,method);
         }
 
+        Log.log("END", className,method);
+      }
+
+      public void parseJson(String jsonString){
+        String method="parseJson";
+        Log.log("START", className,method);
+        try{
+            JSONObject jObj= new JSONObject(jsonString);
+            System.out.println(jObj.get("key"));
+        }catch (Exception e) {
+            Log.log(e,"Exception",className,method);
+        }
         Log.log("END", className,method);
       }
       

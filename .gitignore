@@ -2,3 +2,6 @@
 ConfConstants.java
 com/java/pocs/oracle
 com/java/pocs/oracle/*
+
+#jars
+com/lib/*
